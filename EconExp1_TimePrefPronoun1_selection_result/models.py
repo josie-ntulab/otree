@@ -20,7 +20,7 @@ doc = """
 
 
 class Constants(BaseConstants):
-    name_in_url = 'EconExp1_TimePrefPronoun1_selection_result'
+    name_in_url = 'EconExp1_selection_result'
     players_per_group = None
     num_rounds = 1
 

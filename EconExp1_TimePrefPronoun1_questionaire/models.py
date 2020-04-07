@@ -50,7 +50,7 @@ class Treatment(object):
 
 
 class Constants(BaseConstants):
-    name_in_url = 'EconExp1_TimePrefPronoun1_questionaire'
+    name_in_url = 'EconExp1_questionaire'
     players_per_group = None
     num_rounds = len(WaitingPeriod) * len(GainedAmount)
     key_q_params_pairs = 'questionare_parameters_pairs'
