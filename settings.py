@@ -17,10 +17,10 @@ SESSION_CONFIGS = [
     #    app_sequence=['public_goods', 'payment_info']
     # ),
     # dict(
-    #     name='time_money',
-    #     display_name="Time or Money",
+    #     name='authentication_survey',
+    #     display_name="Authentication Survey",
     #     num_demo_participants=1,
-    #     app_sequence=['authentication_survey', 'time_money']
+    #     app_sequence=['authentication_survey']
     # ),
     dict(
         name='EconExp1_TimePrefPronoun1',
