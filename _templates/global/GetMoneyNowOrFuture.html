@@ -27,12 +27,14 @@
         font-size: 40px;
         display: none;
     }
-    .formfields-area {
-        margin: 20px;
+    .show-after-speech-area {
         display: none;
     }
-    .nextbutton-area {
+    .template-area {  /*「範例」會使用到的文字，預設不顯示*/
         display: none;
+    }
+    .formfields-area {
+        margin: 20px;
     }
     .debug-info {
         display: none;
@@ -41,6 +43,10 @@
 {% endblock %}
 
 {% block content %}
+
+    <div class="template-area">
+        <p>在進入正式的回合之前，我們先給您一個例子。</p>
+    </div>
 
     <button type="button" id="speak-button"> 請點擊播放語音 </button>
 
@@ -52,14 +58,21 @@
         得到 <br>
         {{ player.gained_amount }}元
     </div>
-    
 
-    <div class="formfields-area">
-        {% formfield player.get_money_now_or_future %}
-    </div>
+    <div class="show-after-speech-area">    
 
-    <div class="nextbutton-area">
-        {% next_button %}
+        <div class="formfields-area">
+            {% formfield player.get_money_now_or_future %}
+        </div>
+
+        <div class="template-area">
+            <p>如果您選擇今天的報酬，那代表您今天會得到100元。</p>
+            <p>如果您選擇未來的報酬，那代表您會在2週後得到120元。</p>
+        </div>
+
+        <div class="nextbutton-area">
+            {% next_button %}
+        </div>
     </div>
 
     <div class="hidden-area">
@@ -118,8 +131,7 @@
 
         onend = function () {
             // 播放語音後選項顯示
-            $('.formfields-area').show();
-            $('.nextbutton-area').show();
+            $('.show-after-speech-area').show();
         }
         speak(speech, voice, onend);
         setTimeout(onend, 4500); // workaround: 有時候 speak 的 onend 不會進去不知道為什麼，先再加一個 timeout 確保選項會顯示

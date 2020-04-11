@@ -13,7 +13,11 @@ class Intro_2(Page):
 
 
 class Intro_3(GetMoneyNowOrFuture):
-	pass
+    def is_displayed(self):
+    	# 「範例」中固定參數為 2 和 120（如果您選擇未來的報酬，那代表您會在2週後得到120元。）
+        self.player.waiting_period = 2
+        self.player.gained_amount = 120
+        return True
 
 class Intro_4(Page):
     form_model = 'player'
