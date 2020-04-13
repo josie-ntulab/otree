@@ -14,7 +14,7 @@ class GetMoneyNowOrFuture(Page):
     	'num_listen_times', 'decision_duration',
     	]
 
-    def generate_questionare_parameters_pairs(self):
+    def generate_questionaire_parameters_pairs(self):
         q_params_pairs = []
         # 產生所有週數和金額的組合
         shuffled_waiting_period = list(WaitingPeriod)
@@ -29,11 +29,11 @@ class GetMoneyNowOrFuture(Page):
             )
         return q_params_pairs
 
-    def setup_questionare_parameters_pairs(self):
+    def setup_questionaire_parameters_pairs(self):
         # 如果還不存在，就現在產生「週數和金額的組合」並存起來
         # 如果已經存在，就取出
         if Constants.key_q_params_pairs not in self.participant.vars: 
-            pairs = self.generate_questionare_parameters_pairs()
+            pairs = self.generate_questionaire_parameters_pairs()
             self.participant.vars[Constants.key_q_params_pairs] = pairs
         q_params_pairs = self.participant.vars[Constants.key_q_params_pairs]
 
@@ -43,7 +43,7 @@ class GetMoneyNowOrFuture(Page):
         self.player.waiting_period = pair['waiting_period'].value
         self.player.gained_amount = pair['gained_amount'].value
 
-    def select_questionare(self):
+    def select_questionaire(self):
         q_params_pairs = self.participant.vars[Constants.key_q_params_pairs]
         selected_idx = randint(1, Constants.num_rounds) - 1 # list 的 index 從0開始 但 round_bnumber 從1開始
         selected_q_parama_pair = q_params_pairs[selected_idx]
@@ -58,13 +58,13 @@ class GetMoneyNowOrFuture(Page):
 
     def is_displayed(self):
         # 設定每一 round 的參數（如週數和金額）
-        self.setup_questionare_parameters_pairs()
+        self.setup_questionaire_parameters_pairs()
         return True
 
     def before_next_page(self):
         if self.round_number == Constants.num_rounds:
             # 只在最後一回合才抽結果
-            self.select_questionare()
+            self.select_questionaire()
 
 
 page_sequence = [GetMoneyNowOrFuture]
