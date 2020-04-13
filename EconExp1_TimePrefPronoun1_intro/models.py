@@ -54,6 +54,7 @@ class Player(BasePlayer): # TODO：有空再尋找能直接繼承（重複利用
     treatment_pronoun_included = models.BooleanField(initial = False)
 
     get_money_now_or_future = models.StringField(
+        blank=True, # optional，可不作答的意思。「範例時其實不需要他們做選擇」
         label = '請選擇您要今天或未來的報酬', 
         widget = widgets.RadioSelect, 
         )
