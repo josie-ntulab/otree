@@ -19,24 +19,13 @@ doc = """
 """
 
 
-class WaitingPeriod(Enum):
-    ONE_WEEK    = 1
-    FOUR_WEEK   = 4
-    TWELVE_WEEK = 12
+class WaitingPeriod(object):
+    list = []
 
+class GainedAmount(object):
+    list = []
+    today = 100
 
-class GainedAmount(Enum):
-    TWD105 = 105
-    TWD110 = 110
-    TWD115 = 115
-    # TWD120 = 120
-    # TWD125 = 125
-    # TWD130 = 130
-    # TWD135 = 135
-    # TWD145 = 145
-
-    def get_TWD_today(): # workaround: 為了不讓 len(GainedAmount) 跟 list(GainedAmount) 會取到 TODAY 的值，所以用了 function 來取
-        return 100
 
 class Treatment(object):
     pronoun = '我'
@@ -52,11 +41,14 @@ class Treatment(object):
 class Constants(BaseConstants):
     name_in_url = 'EconExp1_questionaire'
     players_per_group = None
-    num_rounds = len(WaitingPeriod) * len(GainedAmount)
-    key_q_params_pairs = 'questionare_parameters_pairs'
-    key_selected_q = 'selected_questionare'
+    num_rounds = 24 # 這裡代表最大可能 rounds 數，實際的 rounds 數請參考 actual_num_rounds()
+    key_q_params_pairs = 'questionaire_parameters_pairs'
+    key_selected_q = 'selected_questionaire'
     key_pronoun_included = 'treatment_pronoun_included'
     pronoun = Treatment.pronoun
+
+    def actual_num_rounds():
+        return min(Constants.num_rounds, len(WaitingPeriod.list) * len(GainedAmount.list)) # 取其中最小的
 
 
 class OptionOfGetMoney(Enum):

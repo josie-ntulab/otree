@@ -17,7 +17,7 @@ class PayoffInformation(Page):
 	   	]
 	   	
     def vars_for_template(self):
-        return self.participant.vars['selected_questionare']
+        return self.participant.vars['selected_questionaire']
 
     def is_displayed(self):
     	# 在畫面顯示前自動代入之前抽出的結果，存進 db。
@@ -25,10 +25,10 @@ class PayoffInformation(Page):
         return True
 
     def fill_out_selection_result_fields(self, player):
-        selected_q = self.participant.vars['selected_questionare']
+        selected_q = self.participant.vars['selected_questionaire']
         if selected_q['selected_get_money_now']:
             player.waiting_period = 0
-            player.gained_amount = GainedAmount.get_TWD_today()
+            player.gained_amount = GainedAmount.today
         else:
             player.waiting_period = selected_q['selected_waiting_period'] 
             player.gained_amount = selected_q['selected_gained_amount'] 

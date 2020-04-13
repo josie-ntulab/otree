@@ -19,6 +19,15 @@ class Intro_3(GetMoneyNowOrFuture):
         self.player.gained_amount = 120
         return True
 
+    def before_next_page(self):
+    	# override 掉繼承的 `GetMoneyNowOrFuture` class 中的行為，此處不做事。
+        pass
+
+    def app_after_this_page(self, upcoming_apps):
+    	# override 掉繼承的 `GetMoneyNowOrFuture` class 中的行為，此處不做事。
+    	pass
+
+
 class Intro_4(Page):
     form_model = 'player'
     

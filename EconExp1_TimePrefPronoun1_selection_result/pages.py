@@ -5,6 +5,6 @@ from .models import Constants
 
 class Results(Page):
     def vars_for_template(self):
-        return self.participant.vars['selected_questionare']
+        return self.participant.vars['selected_questionaire']
 
 page_sequence = [Results]

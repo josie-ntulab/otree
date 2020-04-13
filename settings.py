@@ -33,6 +33,13 @@ SESSION_CONFIGS = [
             'EconExp1_TimePrefPronoun1_selection_result',
             'EconExp1_TimePrefPronoun1_payoff',
             ],
+
+        # Configure sessions https://otree.readthedocs.io/en/latest/treatments.html#configure-sessions
+        available_waiting_periods='[1, 4, 12]',
+        available_gained_amounts='[105, 110, 115, 120, 125, 130, 135, 140]',
+        doc="""
+            請在「Configure session 的 Custom 中」定義所有「等待週數」和「獲得金額」的列表
+            """
     ),
 ]
 
