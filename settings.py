@@ -30,7 +30,8 @@ SESSION_CONFIGS = [
             'EconExp1_TimePrefPronoun1_intro',
             'EconExp1_TimePrefPronoun1_questionaire', 
             'EconExp1_TimePrefPronoun1_survey', 
-            'EconExp1_TimePrefPronoun1_selection_result'
+            'EconExp1_TimePrefPronoun1_selection_result',
+            'EconExp1_TimePrefPronoun1_payoff',
             ],
     ),
 ]
