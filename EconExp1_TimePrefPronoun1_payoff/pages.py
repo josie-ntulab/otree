@@ -28,7 +28,7 @@ class PayoffInformation(Page):
         selected_q = self.participant.vars['selected_questionaire']
         if selected_q['selected_get_money_now']:
             player.waiting_period = 0
-            player.gained_amount = GainedAmount.get_TWD_today()
+            player.gained_amount = GainedAmount.today
         else:
             player.waiting_period = selected_q['selected_waiting_period'] 
             player.gained_amount = selected_q['selected_gained_amount'] 

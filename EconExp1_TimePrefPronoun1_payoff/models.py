@@ -26,7 +26,7 @@ class Constants(BaseConstants):
     name_in_url = 'EconExp1_payoff'
     players_per_group = None
     num_rounds = 1
-    gained_amount_today = GainedAmount.get_TWD_today()
+    gained_amount_today = GainedAmount.today
 
 
 class Subsession(BaseSubsession):

@@ -16,6 +16,8 @@ from EconExp1_TimePrefPronoun1_questionaire.models import (
     Treatment,
 )
 
+import json
+
 
 author = 'Josie_NTULAB'
 
@@ -29,13 +31,24 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
 
-    num_questions = len(WaitingPeriod) * len(GainedAmount)
     pronoun = Treatment.pronoun
-    gained_amount_today = GainedAmount.get_TWD_today()
+    gained_amount_today = GainedAmount.today
 
 
 class Subsession(BaseSubsession):
+    num_questions = models.IntegerField() # 實際上的回合數
+
     def creating_session(self):
+        # 從 session config 讀取（預設定義在 settings.py 中 SESSION_CONFIGS，但可在網頁的「Create a new session / Configure session」 中修改）
+        config = self.session.config
+        json_string = config['available_waiting_periods']
+        WaitingPeriod.list = json.loads(json_string)
+
+        json_string = config['available_gained_amounts']
+        GainedAmount.list =  json.loads(json_string)
+
+        self.num_questions = len(WaitingPeriod.list) * len(GainedAmount.list)
+
         for p in self.get_players():
             p.treatment_pronoun_included = Treatment.get_pronoun_included(p)
 
