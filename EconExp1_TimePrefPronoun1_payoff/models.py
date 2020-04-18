@@ -44,10 +44,10 @@ class Player(BasePlayer):
     # 獲得的報償
     gained_amount = models.IntegerField()
 
-    # 匯款 銀行代碼
+    # 匯款 銀行或機構代碼
     bank_code = models.StringField()
 
-    # 匯款 銀行帳號
+    # 匯款 銀行或機構帳號
     account_number = models.StringField(
-        label = '請輸入你的銀行帳號', 
+        label = '請輸入你的銀行或機構帳號', 
         )

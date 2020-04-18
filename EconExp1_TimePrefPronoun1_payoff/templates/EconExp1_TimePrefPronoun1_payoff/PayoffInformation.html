@@ -21,7 +21,7 @@
     </div>
 
 	<p>
-		請輸入你的銀行代碼：
+		請選擇你的銀行或機構代碼：
 	</p>
 
 	​<select name="bank_code"> <!-- https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets -->
@@ -144,6 +144,13 @@
 	<p></p>
 	
 	{% formfield player.account_number %}
+
+	<br/>
+	
+	<p>請確認匯款代碼和帳號輸入無誤。</p>
+    <p>如果不知道如何填寫，請舉手，實驗人員將為您說明。注意：若有任何失誤，可能會造成你無法領取實驗報酬！</p>
+
+    <br/>
 
     {% next_button %}
 
