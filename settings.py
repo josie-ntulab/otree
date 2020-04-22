@@ -32,6 +32,7 @@ SESSION_CONFIGS = [
             'EconExp1_TimePrefPronoun1_survey', 
             'EconExp1_TimePrefPronoun1_selection_result',
             'EconExp1_TimePrefPronoun1_payoff',
+            'EconExp1_TimePrefPronoun1_finished',
             ],
 
         # Configure sessions https://otree.readthedocs.io/en/latest/treatments.html#configure-sessions
