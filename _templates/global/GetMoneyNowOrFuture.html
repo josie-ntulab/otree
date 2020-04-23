@@ -13,6 +13,7 @@
     #speak-button {
         font-size: 30px;
         margin: 30px;
+        display: none;
     }
     .hidden-area {
         display: none;
@@ -105,6 +106,7 @@
             var name = voices[index].name;
             if(name.startsWith("Google 國語")) {
                 voice = voices[index];
+                $('#speak-button').show(); // 當 voice ready 時才 show 播放按鈕。
                 break;
             }
         }
@@ -115,6 +117,10 @@
     if (speechSynthesis.onvoiceschanged !== undefined) {
         speechSynthesis.onvoiceschanged = setupVoice;
     }
+
+    setTimeout(function () {
+        $('#speak-button').show(); // 若 voice 抓不到 Google 語音引擎，那1秒後還是 show 播放按鈕，避免完全無法作答。
+    }, 1000)
 
     // 按下播放按鈕
     $('#speak-button').click(function(){
