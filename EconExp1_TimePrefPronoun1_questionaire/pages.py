@@ -3,6 +3,8 @@ from ._builtin import Page, WaitPage
 from .models import Constants, WaitingPeriod, GainedAmount
 from random import randint
 import random
+from EconExp1_TimePrefPronoun1_questionaire.models import Subsession as QuestionaireSubsession
+
 
 class GetMoneyNowOrFuture(Page):
     form_model = 'player'
@@ -30,6 +32,9 @@ class GetMoneyNowOrFuture(Page):
         return q_params_pairs
 
     def setup_questionaire_parameters_pairs(self):
+        # 確保 `WaitingPeriod/GainedAmount` 有從 session config 載入好。
+        QuestionaireSubsession.load_from_session_config_if_needed(self.session.config)
+
         # 如果還不存在，就現在產生「週數和金額的組合」並存起來
         # 如果已經存在，就取出
         if Constants.key_q_params_pairs not in self.participant.vars: 
@@ -38,14 +43,14 @@ class GetMoneyNowOrFuture(Page):
         q_params_pairs = self.participant.vars[Constants.key_q_params_pairs]
 
         # 設定每一 round 的參數，並寫入 db
-        idx = self.round_number - 1 # list 從0開始 但 round_bnumber 從1開始
+        idx = self.round_number - 1 # list 從0開始 但 round_number 從1開始
         pair = q_params_pairs[idx]
         self.player.waiting_period = pair['waiting_period']
         self.player.gained_amount = pair['gained_amount']
 
     def select_questionaire(self):
         q_params_pairs = self.participant.vars[Constants.key_q_params_pairs]
-        selected_idx = randint(1, Constants.actual_num_rounds()) - 1 # list 的 index 從0開始 但 round_bnumber 從1開始
+        selected_idx = randint(1, Constants.actual_num_rounds()) - 1 # list 的 index 從0開始 但 round_number 從1開始
         selected_q_parama_pair = q_params_pairs[selected_idx]
         selected_player = self.player.in_all_rounds()[selected_idx]
         selected_player.is_selected = True

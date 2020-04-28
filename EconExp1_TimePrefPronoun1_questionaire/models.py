@@ -11,6 +11,7 @@ from otree.api import (
 
 from enum import Enum
 import random
+import json
 
 author = 'Josie_NTULAB'
 
@@ -63,7 +64,19 @@ class OptionOfGetMoney(Enum):
 
 
 class Subsession(BaseSubsession):
+    @staticmethod
+    def load_from_session_config_if_needed(session_config):
+        # 從 session config 讀取（預設定義在 settings.py 中 SESSION_CONFIGS，但可在網頁的「Create a new session / Configure session」 中修改）
+        if len(WaitingPeriod.list) == 0:
+            json_string = session_config['available_waiting_periods']
+            WaitingPeriod.list = json.loads(json_string)
+
+        if len(GainedAmount.list) == 0:
+            json_string = session_config['available_gained_amounts']
+            GainedAmount.list = json.loads(json_string)
+
     def creating_session(self):
+        Subsession.load_from_session_config_if_needed(self.session.config)
         for p in self.get_players():
             p.treatment_pronoun_included = Treatment.get_pronoun_included(p)
 
