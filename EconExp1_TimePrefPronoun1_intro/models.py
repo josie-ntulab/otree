@@ -14,9 +14,8 @@ from EconExp1_TimePrefPronoun1_questionaire.models import (
     WaitingPeriod,
     GainedAmount,
     Treatment,
+    Subsession as QuestionaireSubsession
 )
-
-import json
 
 
 author = 'Josie_NTULAB'
@@ -39,14 +38,9 @@ class Subsession(BaseSubsession):
     num_questions = models.IntegerField() # 實際上的回合數
 
     def creating_session(self):
-        # 從 session config 讀取（預設定義在 settings.py 中 SESSION_CONFIGS，但可在網頁的「Create a new session / Configure session」 中修改）
-        config = self.session.config
-        json_string = config['available_waiting_periods']
-        WaitingPeriod.list = json.loads(json_string)
-
-        json_string = config['available_gained_amounts']
-        GainedAmount.list =  json.loads(json_string)
-
+        # 確保 `WaitingPeriod/GainedAmount` 有從 session config 載入好。
+        QuestionaireSubsession.load_from_session_config_if_needed(self.session.config)
+        
         self.num_questions = len(WaitingPeriod.list) * len(GainedAmount.list)
 
         for p in self.get_players():

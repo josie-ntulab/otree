@@ -3,6 +3,8 @@ from ._builtin import Page, WaitPage
 from .models import Constants, WaitingPeriod, GainedAmount
 from random import randint
 import random
+from EconExp1_TimePrefPronoun1_questionaire.models import Subsession as QuestionaireSubsession
+
 
 class GetMoneyNowOrFuture(Page):
     form_model = 'player'
@@ -30,6 +32,9 @@ class GetMoneyNowOrFuture(Page):
         return q_params_pairs
 
     def setup_questionaire_parameters_pairs(self):
+        # 確保 `WaitingPeriod/GainedAmount` 有從 session config 載入好。
+        QuestionaireSubsession.load_from_session_config_if_needed(self.session.config)
+
         # 如果還不存在，就現在產生「週數和金額的組合」並存起來
         # 如果已經存在，就取出
         if Constants.key_q_params_pairs not in self.participant.vars: 
