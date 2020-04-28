@@ -38,14 +38,14 @@ class GetMoneyNowOrFuture(Page):
         q_params_pairs = self.participant.vars[Constants.key_q_params_pairs]
 
         # 設定每一 round 的參數，並寫入 db
-        idx = self.round_number - 1 # list 從0開始 但 round_bnumber 從1開始
+        idx = self.round_number - 1 # list 從0開始 但 round_number 從1開始
         pair = q_params_pairs[idx]
         self.player.waiting_period = pair['waiting_period']
         self.player.gained_amount = pair['gained_amount']
 
     def select_questionaire(self):
         q_params_pairs = self.participant.vars[Constants.key_q_params_pairs]
-        selected_idx = randint(1, Constants.actual_num_rounds()) - 1 # list 的 index 從0開始 但 round_bnumber 從1開始
+        selected_idx = randint(1, Constants.actual_num_rounds()) - 1 # list 的 index 從0開始 但 round_number 從1開始
         selected_q_parama_pair = q_params_pairs[selected_idx]
         selected_player = self.player.in_all_rounds()[selected_idx]
         selected_player.is_selected = True
