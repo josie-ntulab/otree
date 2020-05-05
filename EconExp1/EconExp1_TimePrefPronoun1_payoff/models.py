@@ -9,7 +9,7 @@ from otree.api import (
     currency_range,
 )
 
-from EconExp1_TimePrefPronoun1_questionaire.models import (
+from EconExp1.EconExp1_TimePrefPronoun1_questionaire.models import (
     Constants as QuestionaireConstants,
     GainedAmount,
 )

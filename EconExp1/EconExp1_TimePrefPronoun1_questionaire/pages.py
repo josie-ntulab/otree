@@ -3,7 +3,7 @@ from ._builtin import Page, WaitPage
 from .models import Constants, WaitingPeriod, GainedAmount
 from random import randint
 import random
-from EconExp1_TimePrefPronoun1_questionaire.models import Subsession as QuestionaireSubsession
+from EconExp1.EconExp1_TimePrefPronoun1_questionaire.models import Subsession as QuestionaireSubsession
 
 
 class GetMoneyNowOrFuture(Page):
