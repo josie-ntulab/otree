@@ -28,7 +28,7 @@ SESSION_CONFIGS = [
         num_demo_participants=3,
         app_sequence=[
             'EconExp1.intro',
-            'EconExp1.questionaire', 
+            'EconExp1.q', 
             'EconExp1.survey', 
             'EconExp1.selection_result',
             'EconExp1.payoff',

@@ -2,7 +2,7 @@ from otree.api import Currency as c, currency_range
 from ._builtin import Page
 from .models import Constants
 
-from EconExp1.questionaire.models import (
+from EconExp1.q.models import (
     Constants as QuestionaireConstants,
     GainedAmount,
 )

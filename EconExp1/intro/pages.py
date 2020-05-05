@@ -1,7 +1,7 @@
 from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants
-from EconExp1.questionaire.pages import GetMoneyNowOrFuture
+from EconExp1.q.pages import GetMoneyNowOrFuture
 
 
 class Intro_1(Page):
