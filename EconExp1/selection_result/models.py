@@ -9,7 +9,7 @@ from otree.api import (
     currency_range,
 )
 
-from EconExp1.EconExp1_TimePrefPronoun1_questionaire.models import GainedAmount
+from EconExp1.questionaire.models import GainedAmount
 
 
 author = 'Josie_NTULAB'

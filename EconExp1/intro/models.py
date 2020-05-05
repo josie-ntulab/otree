@@ -9,7 +9,7 @@ from otree.api import (
     currency_range,
 )
 
-from EconExp1.EconExp1_TimePrefPronoun1_questionaire.models import (
+from EconExp1.questionaire.models import (
     OptionOfGetMoney,
     WaitingPeriod,
     GainedAmount,
@@ -51,7 +51,7 @@ class Group(BaseGroup):
     pass
 
 
-class Player(BasePlayer): # TODO：有空再尋找能直接繼承（重複利用）EconExp1_TimePrefPronoun1_questionaire.models 裡 Player 的方法
+class Player(BasePlayer): # TODO：有空再尋找能直接繼承（重複利用）questionaire.models 裡 Player 的方法
     # 幾週後 (hidden)
     waiting_period = models.IntegerField()
 

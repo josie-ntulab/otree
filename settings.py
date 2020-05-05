@@ -27,12 +27,12 @@ SESSION_CONFIGS = [
         display_name="EconExp1",
         num_demo_participants=3,
         app_sequence=[
-            'EconExp1.EconExp1_TimePrefPronoun1_intro',
-            'EconExp1.EconExp1_TimePrefPronoun1_questionaire', 
-            'EconExp1.EconExp1_TimePrefPronoun1_survey', 
-            'EconExp1.EconExp1_TimePrefPronoun1_selection_result',
-            'EconExp1.EconExp1_TimePrefPronoun1_payoff',
-            'EconExp1.EconExp1_TimePrefPronoun1_finished',
+            'EconExp1.intro',
+            'EconExp1.questionaire', 
+            'EconExp1.survey', 
+            'EconExp1.selection_result',
+            'EconExp1.payoff',
+            'EconExp1.finished',
             ],
 
         # Configure sessions https://otree.readthedocs.io/en/latest/treatments.html#configure-sessions
