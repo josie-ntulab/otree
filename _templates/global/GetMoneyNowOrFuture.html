@@ -53,7 +53,7 @@
 
     <div class="speech-area">
     	<div class="pronoun-area">
-        	{{ Constants.pronoun }} <br>
+        	{{ player.treatment_pronoun }} <br>
     	</div>
         {{ player.waiting_period }} 週後  <br>
         得到 <br>
@@ -84,7 +84,7 @@
     <div class="hidden-area">
         {% formfield player.waiting_period %}
         {% formfield player.gained_amount %}
-        {% formfield player.treatment_pronoun_included %}
+        {% formfield player.treatment_pronoun %}
 
         {% formfield player.num_listen_times %}
         {% formfield player.decision_duration %}
@@ -132,7 +132,7 @@
         $speech_area.show(); // 抓到文字區
 
         var speech;
-        {% if player.treatment_pronoun_included == True %}
+        {% if player.treatment_pronoun != '' %}
             $('.pronoun-area').show(); // 抓到「我」
             speech = $speech_area.text();
         {% else %}

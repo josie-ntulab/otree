@@ -29,14 +29,15 @@ class GainedAmount(object):
 
 
 class Treatment(object):
-    pronoun = '我'
-    def get_pronoun_included(player):
+    available_pronoun_list = ['你', '受試者']
+    def get_pronoun(player):
         participant = player.participant
         # lazy loading: 若不存在就決定並起來，若已存在就直接取出
-        if Constants.key_pronoun_included not in participant.vars:
-            participant.vars[Constants.key_pronoun_included] = random.choice([True, False])
-        pronoun_included = participant.vars[Constants.key_pronoun_included]
-        return pronoun_included
+        if Constants.key_pronoun not in participant.vars:
+            # 從上面定義的 treatment 列表中，隨機選出一個給該受試者
+            participant.vars[Constants.key_pronoun] = random.choice(Treatment.available_pronoun_list)
+        pronoun = participant.vars[Constants.key_pronoun]
+        return pronoun
 
 
 class Constants(BaseConstants):
@@ -45,8 +46,7 @@ class Constants(BaseConstants):
     num_rounds = 24 # 這裡代表最大可能 rounds 數，實際的 rounds 數請參考 actual_num_rounds()
     key_q_params_pairs = 'questionaire_parameters_pairs'
     key_selected_q = 'selected_questionaire'
-    key_pronoun_included = 'treatment_pronoun_included'
-    pronoun = Treatment.pronoun
+    key_pronoun = 'treatment_pronoun'
 
     def actual_num_rounds():
         return min(Constants.num_rounds, len(WaitingPeriod.list) * len(GainedAmount.list)) # 取其中最小的
@@ -57,11 +57,8 @@ class OptionOfGetMoney(Enum):
     OPTION_FUTURE = '選擇未來的報酬'
 
     def formatted_option(player, option_enum):
-        if player.treatment_pronoun_included:
-            return Constants.pronoun + option_enum.value
-        else:
-            return option_enum.value
-
+        return Treatment.get_pronoun(player) + option_enum.value
+        
 
 class Subsession(BaseSubsession):
     @staticmethod
@@ -78,7 +75,7 @@ class Subsession(BaseSubsession):
     def creating_session(self):
         Subsession.load_from_session_config_if_needed(self.session.config)
         for p in self.get_players():
-            p.treatment_pronoun_included = Treatment.get_pronoun_included(p)
+            p.treatment_pronoun = Treatment.get_pronoun(p)
 
 
 class Group(BaseGroup):
@@ -92,7 +89,7 @@ class Player(BasePlayer):
     # 獲得的報償 (hidden)
     gained_amount = models.IntegerField()
 
-    treatment_pronoun_included = models.BooleanField(initial = False)
+    treatment_pronoun = models.StringField(initial = '')
 
     get_money_now_or_future = models.StringField(
         label = '請選擇您要今天或未來的報酬', 
