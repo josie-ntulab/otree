@@ -187,6 +187,7 @@
     }
 
     function adjustTextForSpeech(text) {
+        // workaround: 當「受試者四周後...」連在一起時 Google 語音發音會很奇怪，好像忽男聲忽女聲。後來發現在者後面放一個逗號，就會恢復正常。 https://josieslab.slack.com/archives/G012NFPMMCG/p1589617504002100
         return text.replace('者', '者，')
     }
 
