@@ -171,6 +171,7 @@
     })
 
     function speak(text, voice, onend) {
+        text = adjustTextForSpeech(text);
         var utterThis = new SpeechSynthesisUtterance(text);
         utterThis.onend = onend;
         utterThis.onerror = function(event) {
@@ -183,6 +184,10 @@
         }
 
         window.speechSynthesis.speak(utterThis);
+    }
+
+    function adjustTextForSpeech(text) {
+        return text.replace('者', '者，')
     }
 
 </script>
