@@ -53,7 +53,7 @@
 
     <div class="speech-area">
     	<div class="pronoun-area">
-        	{{ Constants.pronoun }} <br>
+        	{{ player.treatment_pronoun }} <br>
     	</div>
         {{ player.waiting_period }} 週後  <br>
         得到 <br>
@@ -84,7 +84,7 @@
     <div class="hidden-area">
         {% formfield player.waiting_period %}
         {% formfield player.gained_amount %}
-        {% formfield player.treatment_pronoun_included %}
+        {% formfield player.treatment_pronoun %}
 
         {% formfield player.num_listen_times %}
         {% formfield player.decision_duration %}
@@ -132,7 +132,7 @@
         $speech_area.show(); // 抓到文字區
 
         var speech;
-        {% if player.treatment_pronoun_included == True %}
+        {% if player.treatment_pronoun != '' %}
             $('.pronoun-area').show(); // 抓到「我」
             speech = $speech_area.text();
         {% else %}
@@ -171,6 +171,7 @@
     })
 
     function speak(text, voice, onend) {
+        text = adjustTextForSpeech(text);
         var utterThis = new SpeechSynthesisUtterance(text);
         utterThis.onend = onend;
         utterThis.onerror = function(event) {
@@ -183,6 +184,11 @@
         }
 
         window.speechSynthesis.speak(utterThis);
+    }
+
+    function adjustTextForSpeech(text) {
+        // workaround: 當「受試者四周後...」連在一起時 Google 語音發音會很奇怪，好像忽男聲忽女聲。後來發現在者後面放一個逗號，就會恢復正常。 https://josieslab.slack.com/archives/G012NFPMMCG/p1589617504002100
+        return text.replace('者', '者，')
     }
 
 </script>

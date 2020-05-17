@@ -30,7 +30,6 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
 
-    pronoun = Treatment.pronoun
     gained_amount_today = GainedAmount.today
 
 
@@ -44,7 +43,7 @@ class Subsession(BaseSubsession):
         self.num_questions = len(WaitingPeriod.list) * len(GainedAmount.list)
 
         for p in self.get_players():
-            p.treatment_pronoun_included = Treatment.get_pronoun_included(p)
+            p.treatment_pronoun = Treatment.get_pronoun(p)
 
 
 class Group(BaseGroup):
@@ -58,7 +57,7 @@ class Player(BasePlayer): # TODO：有空再尋找能直接繼承（重複利用
     # 獲得的報償 (hidden)
     gained_amount = models.IntegerField()
 
-    treatment_pronoun_included = models.BooleanField(initial = False)
+    treatment_pronoun = models.StringField(initial = '')
 
     get_money_now_or_future = models.StringField(
         blank=True, # optional，可不作答的意思。「範例時其實不需要他們做選擇」
