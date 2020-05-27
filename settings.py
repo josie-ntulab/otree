@@ -42,6 +42,13 @@ SESSION_CONFIGS = [
             請在「Configure session 的 Custom 中」定義所有「等待週數」和「獲得金額」的列表
             """
     ),
+    dict(
+        name = 'pggfg',
+        display_name = 'Public Good Game with Punishment (Fehr and Gaechter)',
+        num_demo_participants = 3,
+        app_sequence = ['pggfg',
+            ],
+    ),
 ]
 
 
