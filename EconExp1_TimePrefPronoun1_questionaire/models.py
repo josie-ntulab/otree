@@ -30,12 +30,35 @@ class GainedAmount(object):
 
 class Treatment(object):
     available_pronoun_list = ['你', '受試者']
+    participant_ids = []
+    pronoun_list = []
+
+    def create_participant_ids(all_players):
+        for p in all_players:
+            pid = p.participant.id_in_session
+            print(pid)
+            if pid not in Treatment.participant_ids:
+                Treatment.participant_ids.append(pid)
+        
+    def create_pronoun_list_if_needed(all_players): # 事先準備好所有受試者的 pronoun 們
+        if len(Treatment.pronoun_list) > 0:
+            return
+        Treatment.create_participant_ids(all_players)
+        for each_pronoun in Treatment.available_pronoun_list:
+            count = int(len(Treatment.participant_ids) / len(Treatment.available_pronoun_list)) # 例如有5人，平均分配兩組 treatment，那就是 5/2 = 2（不取餘數）
+            Treatment.pronoun_list.extend( [each_pronoun] * count ) # “python - Create list of single item repeated N times - Stack Overflow” https://stackoverflow.com/questions/3459098/create-list-of-single-item-repeated-n-times
+        while len(Treatment.pronoun_list) < len(Treatment.participant_ids): # 若因前面 for 迴圈中不能整除，也就是 `available_pronoun_list` 不能完平均地分配給所有 participants，則最後會不夠，在此補上。（如果 `available_pronoun_list` 就兩個，那最多就差1，也就是最多會差到(count - 1)個）
+            Treatment.pronoun_list.append(random.choice(Treatment.available_pronoun_list)) # 剩下的就隨機挑選
+        random.shuffle(Treatment.pronoun_list) # 把例如 [你, 你, 你, 受試者, 受試者] 打亂成 [受試者, 你, 你, 受試者, 你]
+
     def get_pronoun(player):
         participant = player.participant
         # lazy loading: 若不存在就決定並起來，若已存在就直接取出
         if Constants.key_pronoun not in participant.vars:
-            # 從上面定義的 treatment 列表中，隨機選出一個給該受試者
-            participant.vars[Constants.key_pronoun] = random.choice(Treatment.available_pronoun_list)
+            # 從上面定義的 treatment 列表中，取出該受試者的 pronoun
+            pid = participant.id_in_session
+            idx_of_participants = Treatment.participant_ids.index(pid)
+            participant.vars[Constants.key_pronoun] = Treatment.pronoun_list[idx_of_participants]
         pronoun = participant.vars[Constants.key_pronoun]
         return pronoun
 
@@ -74,6 +97,7 @@ class Subsession(BaseSubsession):
 
     def creating_session(self):
         Subsession.load_from_session_config_if_needed(self.session.config)
+        Treatment.create_pronoun_list_if_needed(self.get_players())
         for p in self.get_players():
             p.treatment_pronoun = Treatment.get_pronoun(p)
 
