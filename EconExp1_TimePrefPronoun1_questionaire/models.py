@@ -36,7 +36,6 @@ class Treatment(object):
     def create_participant_ids(all_players):
         for p in all_players:
             pid = p.participant.id_in_session
-            print(pid)
             if pid not in Treatment.participant_ids:
                 Treatment.participant_ids.append(pid)
         
