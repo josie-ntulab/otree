@@ -25,7 +25,8 @@ SESSION_CONFIGS = [
     dict(
         name='EconExp1_TimePrefPronoun1',
         display_name="EconExp1",
-        num_demo_participants=3,
+        num_demo_participants=0, # 藉由將 demo 的人數設為0，讓外部人士無法直接進入實驗，而實驗者可由需要密碼登入的「Sessions Tab」來 Create Session，並設定所需人數來完成實驗。
+
         app_sequence=[
             'EconExp1_TimePrefPronoun1_intro',
             'EconExp1_TimePrefPronoun1_questionaire', 
