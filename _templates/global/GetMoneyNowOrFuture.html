@@ -129,7 +129,9 @@
         $('#id_num_listen_times').val(num_listen_times)
 
         $speech_area = $('.speech-area');
-        $speech_area.show(); // 抓到文字區
+        {% if shows_speech_area %}
+            $speech_area.show(); // 抓到文字區
+        {% endif %}
 
         var speech;
         {% if player.treatment_pronoun != '' %}
