@@ -12,6 +12,7 @@ class GetMoneyNowOrFuture(Page):
     	'waiting_period',
     	'gained_amount',
         'treatment_pronoun',
+        'treatment_speech_speed',
     	'get_money_now_or_future', 
     	'num_listen_times', 'decision_duration',
     	]

@@ -85,6 +85,7 @@
         {% formfield player.waiting_period %}
         {% formfield player.gained_amount %}
         {% formfield player.treatment_pronoun %}
+        {% formfield player.treatment_speech_speed %}
 
         {% formfield player.num_listen_times %}
         {% formfield player.decision_duration %}
@@ -142,11 +143,13 @@
             speech = $speech_area.clone().children().remove().end().text();
         {% endif %}
 
+        speed = {{ player.treatment_speech_speed }}
+
         onend = function () {
             // 播放語音後選項顯示
             $('.show-after-speech-area').show();
         }
-        speak(speech, voice, onend);
+        speak(speech, voice, speed, onend);
         setTimeout(onend, 4500); // workaround: 有時候 speak 的 onend 不會進去不知道為什麼，先再加一個 timeout 確保選項會顯示
 
         // decision_duration
@@ -172,7 +175,7 @@
         }
     })
 
-    function speak(text, voice, onend) {
+    function speak(text, voice, speed, onend) {
         text = adjustTextForSpeech(text);
         var utterThis = new SpeechSynthesisUtterance(text);
         utterThis.onend = onend;
@@ -180,7 +183,8 @@
             console.error('SpeechSynthesisUtterance.onerror');
         }
         utterThis.pitch = 1;
-        utterThis.rate = 0.8;
+        // TODO: 實際速度仍須確認
+        utterThis.rate = 0.8 * speed;
         if (voice) {
             utterThis.voice = voice;
         }

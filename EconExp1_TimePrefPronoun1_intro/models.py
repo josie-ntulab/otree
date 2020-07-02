@@ -43,8 +43,10 @@ class Subsession(BaseSubsession):
         self.num_questions = len(WaitingPeriod.list) * len(GainedAmount.list)
         
         Treatment.create_pronoun_list_if_needed(self.get_players())
+        Treatment.create_speech_speed_list_if_needed(self.get_players())
         for p in self.get_players():
             p.treatment_pronoun = Treatment.get_pronoun(p)
+            p.treatment_speech_speed = Treatment.get_speech_speed(p)
 
 
 class Group(BaseGroup):
@@ -58,7 +60,11 @@ class Player(BasePlayer): # TODO：有空再尋找能直接繼承（重複利用
     # 獲得的報償 (hidden)
     gained_amount = models.IntegerField()
 
+    # treatement 主詞（hidden）
     treatment_pronoun = models.StringField(initial = '')
+
+    # treatement 語音速度（hidden）
+    treatment_speech_speed = models.FloatField(initial = 0)
 
     get_money_now_or_future = models.StringField(
         blank=True, # optional，可不作答的意思。「範例時其實不需要他們做選擇」
