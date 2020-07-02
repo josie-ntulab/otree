@@ -41,7 +41,8 @@ class Subsession(BaseSubsession):
         QuestionaireSubsession.load_from_session_config_if_needed(self.session.config)
         
         self.num_questions = len(WaitingPeriod.list) * len(GainedAmount.list)
-
+        
+        Treatment.create_pronoun_list_if_needed(self.get_players())
         for p in self.get_players():
             p.treatment_pronoun = Treatment.get_pronoun(p)
 
