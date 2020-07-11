@@ -42,6 +42,7 @@ SESSION_CONFIGS = [
         shows_speech_area=False,
         doc="""
             請在「Configure session 的 Custom 中」定義所有「等待週數」和「獲得金額」的列表
+            當 Session Create 完成後，請記得去「✏️ Edit」 tab，在 Label 欄位填上可供辨認的註記，例如「AllenTesting-0711-1」。
             """
     ),
 ]
