@@ -61,8 +61,7 @@ class Treatment(object):
         pronoun = participant.vars[Constants.key_pronoun]
         return pronoun
 
-    # TODO: 實際速度仍須確認
-    available_speech_speed_list = [0.9, 1, 1.1]
+    available_speech_speed_list = [0.7, 0.8, 0.9]
     speech_speed_list = []
 
     def create_speech_speed_list_if_needed(all_players): # 事先準備好所有受試者的 speech_speed 們
