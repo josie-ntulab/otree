@@ -36,7 +36,7 @@ class Treatment(object):
             if pid not in Treatment.participant_ids:
                 Treatment.participant_ids.append(pid)
 
-    available_pronoun_list = ['你', '受試者']
+    available_pronoun_list = ['我']
     pronoun_list = []
     
     def create_pronoun_list_if_needed(all_players): # 事先準備好所有受試者的 pronoun 們
