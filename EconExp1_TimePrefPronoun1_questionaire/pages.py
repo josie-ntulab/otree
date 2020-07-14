@@ -12,6 +12,7 @@ class GetMoneyNowOrFuture(Page):
     	'waiting_period',
     	'gained_amount',
         'treatment_pronoun',
+        'treatment_speech_speed',
     	'get_money_now_or_future', 
     	'num_listen_times', 'decision_duration',
     	]
@@ -77,6 +78,13 @@ class GetMoneyNowOrFuture(Page):
             return upcoming_apps[0]
         else:
             pass
+    
+    def vars_for_template(self):
+        shows_speech_area = self.session.config['shows_speech_area']
+
+        return dict(
+            shows_speech_area = shows_speech_area,
+        )
 
 
 page_sequence = [GetMoneyNowOrFuture]
