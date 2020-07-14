@@ -30,7 +30,9 @@ class GainedAmount(object):
 class Treatment(object):    
     participant_ids = []
     
-    def create_participant_ids(all_players):
+    def create_participant_ids_if_needed(all_players):
+        if len(Treatment.participant_ids) > 0:
+            return
         for p in all_players:
             pid = p.participant.id_in_session
             if pid not in Treatment.participant_ids:
@@ -42,7 +44,7 @@ class Treatment(object):
     def create_pronoun_list_if_needed(all_players): # 事先準備好所有受試者的 pronoun 們
         if len(Treatment.pronoun_list) > 0:
             return
-        Treatment.create_participant_ids(all_players)
+        Treatment.create_participant_ids_if_needed(all_players)
         for each_pronoun in Treatment.available_pronoun_list:
             count = int(len(Treatment.participant_ids) / len(Treatment.available_pronoun_list)) # 例如有5人，平均分配兩組 treatment，那就是 5/2 = 2（不取餘數）
             Treatment.pronoun_list.extend( [each_pronoun] * count ) # “python - Create list of single item repeated N times - Stack Overflow” https://stackoverflow.com/questions/3459098/create-list-of-single-item-repeated-n-times
@@ -67,7 +69,7 @@ class Treatment(object):
     def create_speech_speed_list_if_needed(all_players): # 事先準備好所有受試者的 speech_speed 們
         if len(Treatment.speech_speed_list) > 0:
             return
-        Treatment.create_participant_ids(all_players)
+        Treatment.create_participant_ids_if_needed(all_players)
         for each_speed in Treatment.available_speech_speed_list:
             count = int(len(Treatment.participant_ids) / len(Treatment.available_speech_speed_list)) # 例如有5人，平均分配兩組 treatment，那就是 5/2 = 2（不取餘數）
             Treatment.speech_speed_list.extend( [each_speed] * count ) # “python - Create list of single item repeated N times - Stack Overflow” https://stackoverflow.com/questions/3459098/create-list-of-single-item-repeated-n-times
