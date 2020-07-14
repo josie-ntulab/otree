@@ -183,8 +183,7 @@
             console.error('SpeechSynthesisUtterance.onerror');
         }
         utterThis.pitch = 1;
-        // TODO: 實際速度仍須確認
-        utterThis.rate = 0.8 * speed;
+        utterThis.rate = speed;
         if (voice) {
             utterThis.voice = voice;
         }
