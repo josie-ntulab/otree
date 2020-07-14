@@ -75,3 +75,5 @@ SECRET_KEY = 'ao8%9gfcywbe)d(rw_^+31chpf7jbv4=n068&37nwi8qo5=n8c'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 INSTALLED_APPS = ['otree']
+
+MIGRATION_MODULES = {'otree': 'otree_core_migrations'}
