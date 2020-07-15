@@ -30,9 +30,12 @@ class GainedAmount(object):
 class Treatment(object):    
     participant_ids = []
     
-    def create_participant_ids_if_needed(all_players):
-        if len(Treatment.participant_ids) > 0:
+    def prepare_participant_ids_if_needed(all_players):
+        noNeedToReCreate = len(Treatment.participant_ids) == len(all_players)
+        if noNeedToReCreate:
             return
+
+        Treatment.participant_ids.clear()
         for p in all_players:
             pid = p.participant.id_in_session
             if pid not in Treatment.participant_ids:
@@ -41,10 +44,9 @@ class Treatment(object):
     available_pronoun_list = ['我']
     pronoun_list = []
     
-    def create_pronoun_list_if_needed(all_players): # 事先準備好所有受試者的 pronoun 們
-        if len(Treatment.pronoun_list) > 0:
-            return
-        Treatment.create_participant_ids_if_needed(all_players)
+    def prepare_pronoun_list(all_players): # 事先準備好所有受試者的 pronoun 們
+        Treatment.pronoun_list.clear()
+        Treatment.prepare_participant_ids_if_needed(all_players)
         for each_pronoun in Treatment.available_pronoun_list:
             count = int(len(Treatment.participant_ids) / len(Treatment.available_pronoun_list)) # 例如有5人，平均分配兩組 treatment，那就是 5/2 = 2（不取餘數）
             Treatment.pronoun_list.extend( [each_pronoun] * count ) # “python - Create list of single item repeated N times - Stack Overflow” https://stackoverflow.com/questions/3459098/create-list-of-single-item-repeated-n-times
@@ -66,10 +68,9 @@ class Treatment(object):
     available_speech_speed_list = [0.7, 0.8, 0.9]
     speech_speed_list = []
 
-    def create_speech_speed_list_if_needed(all_players): # 事先準備好所有受試者的 speech_speed 們
-        if len(Treatment.speech_speed_list) > 0:
-            return
-        Treatment.create_participant_ids_if_needed(all_players)
+    def prepare_speech_speed_list(all_players): # 事先準備好所有受試者的 speech_speed 們
+        Treatment.speech_speed_list.clear()
+        Treatment.prepare_participant_ids_if_needed(all_players)
         for each_speed in Treatment.available_speech_speed_list:
             count = int(len(Treatment.participant_ids) / len(Treatment.available_speech_speed_list)) # 例如有5人，平均分配兩組 treatment，那就是 5/2 = 2（不取餘數）
             Treatment.speech_speed_list.extend( [each_speed] * count ) # “python - Create list of single item repeated N times - Stack Overflow” https://stackoverflow.com/questions/3459098/create-list-of-single-item-repeated-n-times
@@ -124,8 +125,8 @@ class Subsession(BaseSubsession):
 
     def creating_session(self):
         Subsession.load_from_session_config_if_needed(self.session.config)
-        Treatment.create_pronoun_list_if_needed(self.get_players())
-        Treatment.create_speech_speed_list_if_needed(self.get_players())
+        Treatment.prepare_pronoun_list(self.get_players())
+        Treatment.prepare_speech_speed_list(self.get_players())
         for p in self.get_players():
             p.treatment_pronoun = Treatment.get_pronoun(p)
             p.treatment_speech_speed = Treatment.get_speech_speed(p)
