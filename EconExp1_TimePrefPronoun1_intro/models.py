@@ -42,8 +42,9 @@ class Subsession(BaseSubsession):
         
         self.num_questions = len(WaitingPeriod.list) * len(GainedAmount.list)
         
-        Treatment.create_pronoun_list_if_needed(self.get_players())
-        Treatment.create_speech_speed_list_if_needed(self.get_players())
+        Treatment.prepare_participant_ids_if_needed(self.get_players())
+        Treatment.prepare_pronoun_list(self.get_players())
+        Treatment.prepare_speech_speed_list(self.get_players())
         for p in self.get_players():
             p.treatment_pronoun = Treatment.get_pronoun(p)
             p.treatment_speech_speed = Treatment.get_speech_speed(p)
